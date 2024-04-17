@@ -8,12 +8,17 @@ import feiner.earthquake.json.FeatureCollection;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.function.Function;
 
 public class EarthquakeFrame extends JFrame {
 
     private JList<String> jlist = new JList<>();
+    private JRadioButton oneHrRadioButton;
+    private JRadioButton oneMonthRadioButton;
+
 
     public EarthquakeFrame() {
 
@@ -22,21 +27,36 @@ public class EarthquakeFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         setLayout(new BorderLayout());
+        JPanel radioPanel = new JPanel();
+        oneHrRadioButton = new JRadioButton("One Hour");
+        oneMonthRadioButton = new JRadioButton("Thirty Days");
 
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(oneHrRadioButton);
+        buttonGroup.add(oneMonthRadioButton);
+
+        radioPanel.add(oneHrRadioButton);
+        radioPanel.add(oneMonthRadioButton);
+
+        add(radioPanel, BorderLayout.NORTH);
         add(jlist, BorderLayout.CENTER);
 
-        EarthquakeService service = new EarthquakeServiceFactory().getService();
-
-        Disposable disposable = service.oneHour()
-                // tells Rx to request the data on a background Thread
-                .subscribeOn(Schedulers.io())
-                // tells Rx to handle the response on Swing's main Thread
-                .observeOn(SwingSchedulers.edt())
-                //.observeOn(AndroidSchedulers.mainThread()) // Instead use this on Android only
-                .subscribe(
-                        (response) -> handleResponse(response),
-                        Throwable::printStackTrace);
     }
+
+    EarthquakeService service = new EarthquakeServiceFactory().getService();
+
+    Disposable disposable = service.oneHour()
+            // tells Rx to request the data on a background Thread
+            .subscribeOn(Schedulers.io())
+            // tells Rx to handle the response on Swing's main Thread
+            .observeOn(SwingSchedulers.edt())
+            //.observeOn(AndroidSchedulers.mainThread()) // Instead use this on Android only
+            .subscribe(
+                    (response) -> handleResponse(response),
+                    Throwable::printStackTrace);
+}
+
+
 
     private void handleResponse(FeatureCollection response) {
 
