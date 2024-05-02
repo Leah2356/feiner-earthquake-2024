@@ -29,7 +29,7 @@ public class EarthquakeFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         setLayout(new BorderLayout());
-        JPanel radioPanel = new JPanel();
+        final JPanel radioPanel = new JPanel();
         oneHrRadioButton = new JRadioButton("One Hour");
         oneMonthRadioButton = new JRadioButton("Thirty Days");
 
@@ -105,7 +105,8 @@ public class EarthquakeFrame extends JFrame {
             }
         });
     }
-public static void main(String[] args) {
+
+    public static void main(String[] args) {
     new EarthquakeFrame().setVisible(true);
 }
 
