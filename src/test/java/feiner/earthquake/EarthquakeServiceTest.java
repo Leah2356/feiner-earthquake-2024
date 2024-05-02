@@ -24,12 +24,12 @@ class EarthquakeServiceTest {
     }
 
     @Test
-    void significantMonth() {
+    void oneMonth() {
         // given
         EarthquakeService service = new EarthquakeServiceFactory().getService();
 
         // when
-        FeatureCollection collection = service.significantMonth().blockingGet();
+        FeatureCollection collection = service.oneMonth().blockingGet();
 
         // then
         Properties properties = collection.features[0].properties;

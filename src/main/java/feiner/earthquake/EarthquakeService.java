@@ -10,6 +10,6 @@ public interface EarthquakeService {
     Single<FeatureCollection> oneHour();
 
     @GET("/earthquakes/feed/v1.0/summary/significant_month.geojson")
-    Single<FeatureCollection> significantMonth();
+    Single<FeatureCollection> oneMonth();
 
 }
