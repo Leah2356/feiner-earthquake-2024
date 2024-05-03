@@ -107,7 +107,7 @@ public class EarthquakeFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-    new EarthquakeFrame().setVisible(true);
+        new EarthquakeFrame().setVisible(true);
 }
 
 }
